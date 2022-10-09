@@ -13,11 +13,16 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation, Dropout
 from keras.optimizers import SGD
 from keras.models import load_model
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+
+import speech_recognition as sp
+
+rec = sp.Recognizer()
+
+my_micro = sp.Microphone(device_index=1)
 
 lemmatizer = WordNetLemmatizer()
 intents = json.loads(open('chatbot.json').read())
+info = json.loads(open('info.json').read())
 
 words = []
 classes = []
@@ -60,7 +65,7 @@ train_x = list(training[:, 0])
 train_y = list(training[:, 1])
 
 model = Sequential()
-model.add(Dense(128, input_shape=(len(train_x[0]),),activation='relu'))
+model.add(Dense(128, input_shape=(len(train_x[0]),), activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.5))
@@ -93,34 +98,65 @@ def bag_of_words(sentence):
             if word == w:
                 bag[i] = 1
     return np.array(bag)
+
 def predict_class(sentence):
     bow = bag_of_words(sentence)
     res = model.predict(np.array([bow]))[0]
-    ERROR_THRESHOLD = 0.25
-    results = [[i, r] for i, r in enumerate(res) if r > ERROR_THRESHOLD]
+    results = [[i, r] for i, r in enumerate(res) if r > 0.25]
 
     results.sort(key=lambda x: x[1], reverse=True)
     return_list = []
     for r in results:
         return_list.append({'intent': classes[r[0]], 'probability': str(r[1])})
     return return_list
-def get_response(intents_list, intents_json):
-    tag = intents_list[0]['intent']
-    list_of_inents = intents_json['intents']
-    for i in list_of_inents:
-        if i['tag'] == tag:
-            result = random.choice(i['responses'])
-            break
-    return result
 
-print("ZAPOCNI RAZGOVOR")
-while True:
-    message = input("")
-    ints = predict_class(message)
-    res = get_response(ints, intents)
+def get_response(intents_list, intents_json):
+    for i in intents_json['intents']:
+        if i['tag'] == intents_list[0]['intent']:
+            res = random.choice(i['responses'])
+            break
     print(res)
+    if 'Da li' in res and '/' not in res and 'ili' not in res:
+        if input("").lower() == 'da':
+            pom = res.lower().split(" ")
+            pom = pom[len(pom) - 1].split("?")[0]
+            print(urls(pom))
+    elif '/' in res or 'ili' in res:
+        print(urls(input("")))
+    elif ':' in res:
+        print(urls(res.lower().split(" ")[0]))
+
+def urls(information):
+    for i in info['info']:
+        if information in i['type']:
+            return i['url']
+    return ""
 
 # Press the green button in the gutter to run the script.
-#if __name__ == '__main__':
+if __name__ == '__main__':
+    print("KAKO ZELIS DA ZAPOCNES RAZGOVOR?")
+    print("1.GOVOR")
+    print("2.DOPISIVANJE")
+    if input("") is "1":
+        while True:
+            rec = sp.Recognizer()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+            my_micro = sp.Microphone(device_index=1)
+
+            with my_micro as source:
+                print("Reci nesto")
+                audio = rec.listen(source)
+
+                try:
+                    message = rec.recognize_google(audio, None, "sr-SP", False)
+                except:
+                    continue
+                print(message)
+                ints = predict_class(message.lower())
+                get_response(ints, intents)
+    else:
+        while True:
+            print("--")
+            message = input("")
+            ints = predict_class(message.lower())
+            get_response(ints, intents)

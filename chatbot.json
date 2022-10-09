@@ -1,46 +1,74 @@
 {"intents": [
 	{"tag" : "greetings",
-	"patterns": ["zdravo","cao","ćao","dobar dan","dan","dobro jutro","jutro","dobro vece","vece","dobro veče", "veče","pozdrav","poz","hi","haj"],
-	"responses": ["Dobro jutro.","Dobro veče.","Dobar dan.","Kako Vam mogu pomoći?"]
-	},
-	{"tag" : "name",
-	"patterns": ["kako se zoves","kako se zoveš","ko si ti"],
+	"patterns": ["zdravo","cao","ćao","dobar dan","dan","dobro jutro","jutro","dobro vece","vece","dobro veče","veče","pozdrav","poz","hi","haj","kako se zoves","kako se zoveš","ko si ti"],
 	"responses": ["Moje ime je Četko. Ja sam virtuelni asisten spreman da Vam pomogne."]
 	},
+	{"tag" : "thankful",
+	"patterns": ["hvala", "hvala na pomoci"],
+	"responses": ["Nema na čemu.", "Nadam se da sam Vam pomogao."]
+	},
+	{"tag" : "osobna pitanja",
+	"patterns": ["kako si", "kako je", "kako ide"],
+	"responses": ["Dobro sam. Hvala na pitanju. Kako mogu da Vam pomognem?"]
+	},
 	{"tag" : "leaving",
-	"patterns": ["zdravo","cao","ćao","dovidjenja","doviđenja","pozdrav","poz","baj","laku noc","noc","ln"],
-	"responses": ["Doviđenja.","Ugodan ostatak dana Vam želim.","Laku noć."]
+	"patterns": ["dovidjenja","doviđenja","pozdrav","poz","baj","laku noc","noc","ln","zdravo","cao","ćao", "cujemo se", "čujemo se"],
+	"responses": ["Doviđenja.","Ugodan ostatak dana Vam želim."]
 	},
 	{"tag" : "healping",
 	"patterns": ["sta da upisem","šta da upišem","ne znam šta da upišem","ne znam sta da upisem"],
-	"responses": ["Da li vas zanimaju osnovne/master/specijalističke/doktorske studije?", "Šta Vas zanima?"]
+	"responses": ["Da li Vas zanimaju akademske ili strukovne studije?", "Da li Vas zanimaju osnovne/master/specijalističke/doktorske akademske studije?", "Da li Vas zanimaju osnovne/master strukovne studije?", "Šta Vas zanima?"]
 	},
-	{"tag" : "osnovne",
+	{"tag" : "studije",
+	"patterns": ["osnovne","osnovne studije","master","master studije","studije"],
+	"responses": ["Da li Vas zanimaju akademske ili strukovne studije?","Da li želite da vidite listu svih studija po departmanima?"]
+	},
+	{"tag" : "oas",
 	"patterns": ["osnovne","osnovne akademske studije","oas","osnovne studije"],
-	"responses": ["Koji departman Vas zanima?","Želite li da vidite listu svih osnovnih studija po departmanima?"]
+	"responses": ["Koji departman Vas zanima?","Da li želite da vidite listu svih osnovnih akademskih studija po departmanima?"]
 	},
-	{"tag" : "master",
+	{"tag" : "oss",
+	"patterns": ["osnovne","osnovne strukovne studije","oas","osnovne studije"],
+	"responses": ["Koji departman Vas zanima?","Da li želite da vidite listu svih osnovnih strukovnih studija po departmanima?"]
+	},
+	{"tag" : "mas",
 	"patterns": ["master","master akademske studije","mas","master studije"],
-	"responses": ["Koji departman Vas zanima?","Želite li da vidite listu svih master studija po departmanima?"]
+	"responses": ["Koji departman Vas zanima?","Da li želite da vidite listu svih master akademskih studija po departmanima?"]
 	},
-	{"tag" : "specijalističke",
+	{"tag" : "mss",
+	"patterns": ["master","master strukovne studije","mss","master studije"],
+	"responses": ["Koji departman Vas zanima?","Da li želite da vidite listu svih master strukovnih studija po departmanima?"]
+	},
+	{"tag" : "sas",
 	"patterns": ["specijalisticke","specijalističke","specijalističke studije","specijalisticke studije","spec","sas","spec studije"],
-	"responses": ["Koji departman Vas zanima?","Želite li da vidite listu svih specijalističkih studija po departmanima?"]
+	"responses": ["Koji departman Vas zanima?","Da li želite da vidite listu svih specijalističkih studija po departmanima?"]
 	},
-	{"tag" : "doktorske",
+	{"tag" : "das",
 	"patterns": ["doktorske","doktorske akademske studije","doktorske studije"],
-	"responses": ["Koji departman Vas zanima?","Želite li da vidite listu svih doktorskih studija po departmanima?"]
+	"responses": ["Da li želite da vidite listu svih doktorskih studija po departmanima?"]
 	},
 	{"tag" : "departmani",
-	"patterns": ["departman","departmani","svi departmani","smerovi po departmanima"],
-	"responses": ["Da li vas zanimaju osnovne/master/specijalističke/doktorske studije?", "Da li želite i listu smerova po departmanima?"]
+	"patterns": ["departman","departmani","svi departmani","smerovi po departmanima", "koji departmani postoje"],
+	"responses": ["Departmani fakulteta se nalaze na sledećem linku:"]
+	},
+	{"tag" : "studijski programi",
+	"patterns": ["studijski program","program", "smerovi"],
+	"responses": ["Da li Vas zanimaju svi studijski prorgami?", "Da li Vas zanimaju studisjki programi na akademskim ili strukovnim studijima?"]
 	},
 	{"tag" : "prijemni",
 	"patterns": ["prijemni","kada je prijemni","koliko traje prijemni","trajanje prijemnog"],
-	"responses": ["Vrsta prijemnog ispita i njegovo trajanje zavise u odnosu na smer koji se upisuje.","Spisak prijemnih ispita možete pronaći na sledećem linku."]
+	"responses": ["Vrsta prijemnog ispita i njegovo trajanje zavise u odnosu na smer koji se upisuje.","Spisak prijemnih ispita možete pronaći na sledećem linku:"]
 	},
 	{"tag" : "upis",
 	"patterns": ["upis","upis na fax","upis na fakultet"],
-	"responses": ["Da li Vas zanima način polaganja prijemnog ispita?","Koji departman Vas zanima?","Koji smer vas zanima?"]
+	"responses": ["Da li Vas zanima način polaganja prijemnog ispita?","Koji departman Vas zanima?","Koji smer Vas zanima?", "Da li Vas zanima dokumentacija potrebna za upis?"]
+	},
+	{"tag" : "dokumentacija",
+	"patterns": ["dokumentacija za upis","dokumentacija"],
+	"responses": ["Dokumentacija neophodna za prijemni ispit se nalazi na sledećem linku:"]
+	},
+	{"tag" : "servis",
+	"patterns": ["servis", "servis za upis", "servis prijemnih ispita"],
+	"responses": ["Servis za prijemni ispit možete pronaći na sledećem linku:"]
 	}
 ]}
